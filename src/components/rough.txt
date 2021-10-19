@@ -1,0 +1,83 @@
+import React, { useState, useEffect } from 'react'
+// import './App.css';
+import Navbar from './components/Navbar'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import About from './pages/About'
+import Headline from './components/Headline'
+function App() {
+  const [result, setResult] = useState({})
+  const [isLoaded, setIsLoaded] = useState(false)
+
+
+  useEffect(() => {
+    makeHTTPRequest()
+  }, [])
+  const makeHTTPRequest = () => {
+    fetch("https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=61ebfa3a3e6446e1bdbda8db38520ba4")
+      .then(res => res.json())
+      .then((result) => {
+        console.log(result);
+        setResult({ result: result })
+        setIsLoaded({ isLoaded: true })
+      },
+        (error) => {
+          setIsLoaded({ isLoaded: false })
+          setResult({ result: error })
+
+        })
+  }
+  if (isLoaded) {
+    return (
+      <>
+        <div>
+          <BrowserRouter>
+
+            <Navbar />
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/about" exact component={About} />
+
+            </Switch>
+
+
+          </BrowserRouter>
+
+
+        </div>
+        <div>
+          {result.articles && result.articles.map((item, index) => {
+            return <Headline title={item.title} description={item.description}
+              image={item.image}></Headline>
+          })}
+        </div>
+
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div>
+          <BrowserRouter>
+
+            <Navbar />
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/about" exact component={About} />
+
+            </Switch>
+            {result.articles}
+
+          </BrowserRouter>
+
+        </div>
+        <div>
+          <h1>Loading.....</h1>
+        </div>
+
+      </>
+
+    );
+  }
+}
+export default App;
