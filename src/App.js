@@ -1,18 +1,13 @@
 
 import React from 'react'
 // import './App.css';
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar/Navbar'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import { AiTwotoneRightSquare } from 'react-icons/ai'
-import Headline from './components/Headline'
-// function App() {
-// const makeHTTPRequest = () => {
-//   fetch('')
-//     .then(res => res.json())
-//     .then((result) => { }, (error) => { })
-// }
+import Headline from './Headline/Headline'
+
 
 class App extends React.Component {
 
