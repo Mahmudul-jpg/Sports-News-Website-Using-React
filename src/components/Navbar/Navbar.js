@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
 
-import { Link, Route } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { SidebarData } from './SlidebarData'
 import './Navbar.css'
 import { IconContext } from 'react-icons'
@@ -14,25 +14,25 @@ export default function Navbar() {
         <>
             <IconContext.Provider value={{ color: 'red' }}>
                 <div className="navbar">
-                    <Link to="/" className="menu-bars">
+                    <NavLink to="/" className="menu-bars">
                         <FaIcons.FaBars onClick={showSidebar} />
-                    </Link>
+                    </NavLink>
 
                 </div>
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className="nav-menu-items" onClick={showSidebar}>
                         <li className="navbar-toggle">
-                            <Link to='#' className='menu-bars'>
+                            <NavLink to='#' className='menu-bars'>
                                 <AiIcons.AiOutlineClose />
-                            </Link>
+                            </NavLink>
                         </li>
                         {SidebarData.map((item, index) => {
                             return (
                                 <li key={index} className={item.className}>
-                                    <Link to={item.path}>
+                                    <NavLink to={item.path}>
                                         {item.icon}
                                         <span>{item.title}</span>
-                                    </Link>
+                                    </NavLink>
                                 </li>
                             )
                         })}
